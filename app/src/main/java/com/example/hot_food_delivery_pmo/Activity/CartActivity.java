@@ -5,6 +5,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hot_food_delivery_pmo.Adapter.CartListAdapter;
@@ -31,7 +32,7 @@ public class CartActivity extends AppCompatActivity {
         initList();
     }
     private void initList() {
-        linearLayoutManager linearLayoutManager = new linearLayoutManager(this, linearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewList.setLayoutManager(linearLayoutManager);
         adapter = new CartListAdapter(managementCart.getListCart(), this, new ChangeNumberItemsListener() {
             @Override
