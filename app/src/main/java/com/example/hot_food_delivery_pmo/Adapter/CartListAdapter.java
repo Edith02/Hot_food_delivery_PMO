@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder>{
     ArrayList<FoodDomain> listFoodSelected;
-    private ManagementCart managementCart;
     ChangeNumberItemsListener changeNumberItemsListener;
+    private ManagementCart managementCart;
 
     public CartListAdapter(ArrayList<FoodDomain> listFoodSelected, Context context, ChangeNumberItemsListener changeNumberItemsListener) {
         this.listFoodSelected = listFoodSelected;
@@ -76,9 +76,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            title = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.titleTxt);
             pic = itemView.findViewById(R.id.pic);
-            feeEachItem = itemView.findViewById(R.id.fee);
+            feeEachItem = itemView.findViewById(R.id.feeEachItem);
             totalEachItem = itemView.findViewById(R.id.totalEachItem);
             plusItem = itemView.findViewById(R.id.plusCardBtn);
             num = itemView.findViewById(R.id.numberItemTxt);

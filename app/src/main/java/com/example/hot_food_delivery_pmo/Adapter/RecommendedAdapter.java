@@ -1,5 +1,6 @@
 package com.example.hot_food_delivery_pmo.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hot_food_delivery_pmo.Activity.ShowDetailActivity;
 import com.example.hot_food_delivery_pmo.Domain.FoodDomain;
 import com.example.hot_food_delivery_pmo.R;
 
@@ -44,6 +46,12 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         Glide.with(holder.itemView.getContext()).
                 load(drawableResourceId).
                 into(holder.pic);
+
+        holder.addBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ShowDetailActivity.class);
+            intent.putExtra("object", RecommendedDomains.get(position));
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
 

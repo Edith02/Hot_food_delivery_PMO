@@ -1,11 +1,15 @@
 package com.example.hot_food_delivery_pmo.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.hot_food_delivery_pmo.Adapter.CartListAdapter;
 import com.example.hot_food_delivery_pmo.Helper.ManagementCart;
@@ -29,20 +33,62 @@ public class CartActivity extends AppCompatActivity {
 
         initView();
         initList();
+        bottomNavigation();
+        calculateCard();
     }
-    private void initList() {
-        linearLayoutManager linearLayoutManager = new linearLayoutManager(this, linearLayoutManager.VERTICAL, false);
-        recyclerViewList.setLayoutManager(linearLayoutManager);
-        adapter = new CartListAdapter(managementCart.getListCart(), this, new ChangeNumberItemsListener() {
+
+    private void bottomNavigation() {
+        LinearLayout homeBtn=findViewById(R.id.homeBtn);
+        LinearLayout cartBtn=findViewById(R.id.cartBtn);
+        LinearLayout cameraBtn=findViewById(R.id.cameraBtn);
+        LinearLayout mappBtn=findViewById(R.id.mappBtn);
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void changed() {
-                calculateCard();
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,IntroActivity.class));
+            }
+        });
+        cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,CartActivity.class));
+            }
+        });
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,CameraActivity.class));
+            }
+        });
+        mappBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this,MappActivity.class));
             }
         });
     }
 
-    recyclerViewList.setAdapter(adapter);
+    private void initList() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewList.setLayoutManager(linearLayoutManager);
+        adapter = new CartListAdapter(managementCart.getListCart(), this, new ChangeNumberItemsListener() {
+            @Override
+            public void changed() {
 
+                calculateCard();
+            }
+        });
+
+        recyclerViewList.setAdapter(adapter);
+        if(managementCart.getListCart().isEmpty()){
+            emptyTxt.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.GONE);
+        } else {
+            emptyTxt.setVisibility(View.GONE);
+            scrollView.setVisibility(View.VISIBLE);
+        }
+    }
 
     private void calculateCard() {
         double percentTax = 0.05;

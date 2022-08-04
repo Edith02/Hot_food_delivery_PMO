@@ -52,6 +52,24 @@ public class TinyDB {
         preferences = PreferenceManager.getDefaultSharedPreferences(appContext);
     }
 
+    /**
+     * Check if external storage is writable or not
+     * @return true if writable, false otherwise
+     */
+    public static boolean isExternalStorageWritable() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
+    /**
+     * Check if external storage is readable or not
+     * @return true if readable, false otherwise
+     */
+    public static boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+
+        return Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+    }
 
     /**
      * Decodes the Bitmap from 'path' and returns it
@@ -71,7 +89,6 @@ public class TinyDB {
         return bitmapFromPath;
     }
 
-
     /**
      * Returns the String path of the last saved image
      * @return string path of the last saved image
@@ -79,7 +96,6 @@ public class TinyDB {
     public String getSavedImagePath() {
         return lastImagePath;
     }
-
 
     /**
      * Saves 'theBitmap' into folder 'theFolder' with the name 'theImageName'
@@ -103,7 +119,6 @@ public class TinyDB {
         return mFullPath;
     }
 
-
     /**
      * Saves 'theBitmap' into 'fullPath'
      * @param fullPath full path of the image file e.g. "Images/MeAtLunch.png"
@@ -113,6 +128,8 @@ public class TinyDB {
     public boolean putImageWithFullPath(String fullPath, Bitmap theBitmap) {
         return !(fullPath == null || theBitmap == null) && saveBitmap(fullPath, theBitmap);
     }
+
+    // Getters
 
     /**
      * Creates the path for the image with name 'imageName' in DEFAULT_APP.. directory
@@ -184,8 +201,6 @@ public class TinyDB {
 
         return (fileCreated && bitmapCompressed && streamClosed);
     }
-
-    // Getters
 
     /**
      * Get int value from SharedPreferences at 'key'. If key not found, return 0
@@ -326,6 +341,8 @@ public class TinyDB {
     }
 
 
+    // Put methods
+
     public ArrayList<FoodDomain> getListObject(String key){
         Gson gson = new Gson();
 
@@ -339,8 +356,6 @@ public class TinyDB {
         return playerList;
     }
 
-
-
     public <T> T getObject(String key, Class<T> classOfT){
 
         String json = getString(key);
@@ -349,9 +364,6 @@ public class TinyDB {
             throw new NullPointerException();
         return (T)value;
     }
-
-
-    // Put methods
 
     /**
      * Put int value into SharedPreferences with 'key' and save
@@ -515,7 +527,6 @@ public class TinyDB {
         return new File(path).delete();
     }
 
-
     /**
      * Clear SharedPreferences (remove everything)
      */
@@ -530,7 +541,6 @@ public class TinyDB {
     public Map<String, ?> getAll() {
         return preferences.getAll();
     }
-
 
     /**
      * Register SharedPreferences change listener
@@ -552,25 +562,6 @@ public class TinyDB {
         preferences.unregisterOnSharedPreferenceChangeListener(listener);
     }
 
-
-    /**
-     * Check if external storage is writable or not
-     * @return true if writable, false otherwise
-     */
-    public static boolean isExternalStorageWritable() {
-        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
-    }
-
-    /**
-     * Check if external storage is readable or not
-     * @return true if readable, false otherwise
-     */
-    public static boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-
-        return Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
-    }
     /**
      * null keys would corrupt the shared pref file and make them unreadable this is a preventive measure
      * @param key the pref key to check
