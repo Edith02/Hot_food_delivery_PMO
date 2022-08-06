@@ -14,19 +14,20 @@
         android:theme="@style/Theme.Hot_food_delivery_PMO"
         tools:targetApi="31">
         <activity
-            android:name=".MappActivity"
+            android:name="Activity.MappActivity"
+            android:exported="false"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name="Activity.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".CameraActivity"
+            android:name="Activity.ShowDetailActivity"
             android:exported="false" />
+<!--         <activity-->
+<!--             android:name=".Bottom_barActivity"-->
+<!--            android:exported="false" />-->
         <activity
-            android:name=".ShowDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Bottom_barActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CartActivity"
+            android:name="Activity.CartActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.IntroActivity"
